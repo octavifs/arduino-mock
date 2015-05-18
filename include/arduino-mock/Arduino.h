@@ -40,6 +40,9 @@ extern "C" {
 #define FALLING 2
 #define RISING 3
 
+#define lowByte(w) ((uint8_t) ((w) & 0xff))
+#define highByte(w) ((uint8_t) ((w) >> 8))
+
 typedef uint8_t boolean;
 typedef uint8_t byte;
 
