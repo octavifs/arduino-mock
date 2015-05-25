@@ -19,6 +19,11 @@ bool stringCapture::captureCStr(const uint8_t *buffer, size_t size) {
   return true;
 }
 
+bool stringCapture::captureCStrBuffer(const char *buffer) {
+  d << std::string(buffer);
+  return true;
+}
+
 void stringCapture::clear() {
   return d.str("");
 }

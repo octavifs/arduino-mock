@@ -109,8 +109,40 @@ uint8_t Serial_::available() {
   return gSerialMock->available();
 }
 
-uint8_t Serial_::read() {
+int Serial_::read() {
   return gSerialMock->read();
+}
+
+// read characters from stream into buffer
+// terminates if length characters have been read, or timeout (see setTimeout)
+// returns the number of characters placed in the buffer
+// the buffer is NOT null terminated.
+//
+size_t Serial_::readBytes(char *buffer, size_t length) {
+  size_t count = 0;
+  while (count < length) {
+    int c = gSerialMock->read();
+    if (c < 0) break;
+    *buffer++ = (char)c;
+    count++;
+  }
+  return count;
+}
+
+
+// as readBytes with terminator character
+// terminates if length characters have been read, timeout, or if the terminator character  detected
+// returns the number of characters placed in the buffer (0 means no valid data found)
+size_t Serial_::readBytesUntil(char terminator, char *buffer, size_t length) {
+  if (length < 1) return 0;
+  size_t index = 0;
+  while (index < length) {
+    int c = gSerialMock->read();
+    if (c < 0 || c == terminator) break;
+    *buffer++ = (char)c;
+    index++;
+  }
+  return index; // return number of characters, not including null terminator
 }
 
 // Preinstantiate Objects

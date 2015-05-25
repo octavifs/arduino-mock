@@ -28,6 +28,7 @@ class stringCapture {
     bool captureUInt8(uint8_t c);
     bool captureUInt16(uint16_t c);
     bool captureCStr(const uint8_t *buffer, size_t size);
+    bool captureCStrBuffer(const char *buffer);
     void clear();
     std::string get();
 

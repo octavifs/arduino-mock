@@ -79,6 +79,10 @@ void loop(void);
 #define UNUSED(expr) do { (void)(expr); } while (0)
 #define F(x) (x)
 
+#define min(a,b) ((a)<(b)?(a):(b))
+#define max(a,b) ((a)>(b)?(a):(b))
+#define abs(x) ((x)>0?(x):-(x))
+
 class ArduinoMock {
   public:
     MOCK_METHOD2(pinMode, void (uint8_t, uint8_t));

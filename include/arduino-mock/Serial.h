@@ -6,6 +6,7 @@
 
 #include <stdint.h>
 #include <gmock/gmock.h>
+#include <string>
 
 #define DEC 10
 #define HEX 16
@@ -37,7 +38,7 @@ class SerialMock {
     MOCK_METHOD1(begin, uint8_t(uint16_t));
 
     MOCK_METHOD0(available, uint8_t());
-    MOCK_METHOD0(read, uint8_t());
+    MOCK_METHOD0(read, int());
 
     MOCK_METHOD0(flush, void());
 
@@ -78,7 +79,13 @@ class Serial_ {
     uint8_t begin(uint32_t);
 
     uint8_t available();
-    uint8_t read();
+    int read();
+
+    size_t readBytes( char *buffer, size_t length); // read chars from stream into buffer
+    size_t readBytes( uint8_t *buffer, size_t length) { return readBytes((char *)buffer, length); }
+
+    size_t readBytesUntil( char terminator, char *buffer, size_t length); // as readBytes with terminator character
+    size_t readBytesUntil( char terminator, uint8_t *buffer, size_t length) { return readBytesUntil(terminator, (char *)buffer, length); }
 
     static void flush();
 
